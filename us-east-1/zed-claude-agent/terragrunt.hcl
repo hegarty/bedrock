@@ -3,7 +3,7 @@ locals {
 }
 
 include "root" {
-  path= find_in_parent_folders()
+  path= find_in_parent_folders("root.hcl")
   expose = true
 }
 
@@ -12,7 +12,7 @@ dependency "iam" {
 }
 
 terraform {
-  source = "${find_in_parent_folders("modules")}/bedrock/agent"
+  source = format(include.root.locals.module_source, "bedrock/agent")
 }
 
 inputs = {
